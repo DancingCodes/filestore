@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moonc - File - Store</title>
+    <style>
+        html {
+            background-color: #212726;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 10%;
+            box-sizing: border-box;
+        }
+
+        .title {
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .upload {
+            position: relative;
+            margin-top: 20px;
+            flex: 1;
+            width: 100%;
+            border: 2px solid #fff;
+            border-bottom: none;
+            box-sizing: border-box;
+            cursor: pointer;
+            border-radius: 6px 6px 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+        }
+
+        .delIcon {
+            position: absolute;
+            z-index: 2;
+            right: 10px;
+            top: 10px;
+            object-fit: cover;
+            display: none;
+            font-size: 28px;
+        }
+
+        .fileInput {
+            display: none;
+        }
+
+        .mediaContent {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: contain;
+            display: none;
+
+        }
+
+        .otherConent {
+            background-color: #212726;
+            font-size: 26px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fileUrlBox {
+            width: 100%;
+            border: 2px solid #fff;
+            border-top: 2px dashed #fff;
+            border-radius: 0 0 6px 6px;
+            cursor: pointer;
+            padding: 8px 12px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 28px;
+        }
+
+        .fileUrl {
+            font-size: 18px;
+        }
+
+        @keyframes scaleTrans {
+            0% {
+                transform: rotateZ(0deg);
+            }
+
+            100% {
+                transform: rotateZ(360deg);
+            }
+        }
+
+        .rotateYAni {
+            animation: scaleTrans 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">Moonc File Store For Express</div>
+    <div class="upload">
+
+        <svg class="icon delIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+            <path
+                d="M875.432137 148.567863c-198.090484-198.090484-523.981279-198.090484-722.071763 0s-198.090484 523.981279 0 722.071763 523.981279 198.090484 722.071763 0S1073.522621 353.048362 875.432137 148.567863zM670.951638 717.279251 511.201248 557.528861l-159.75039 159.75039c-12.780031 12.780031-31.950078 12.780031-44.730109 0-12.780031-12.780031-12.780031-31.950078 0-44.730109L466.471139 512.798752 306.720749 353.048362C293.940718 340.268331 293.940718 321.098284 306.720749 308.318253c12.780031-12.780031 31.950078-12.780031 44.730109 0L511.201248 468.068643l159.75039-159.75039c12.780031-12.780031 31.950078-12.780031 44.730109 0 12.780031 12.780031 12.780031 31.950078 0 44.730109L555.931357 512.798752l159.75039 159.75039c12.780031 12.780031 12.780031 31.950078 0 44.730109S683.731669 730.059282 670.951638 717.279251z"
+                fill="currentColor"></path>
+        </svg>
+
+        <svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+            <path
+                d="M554.666667 550.4V768h192c85.333333-8.533333 149.333333-81.066667 149.333333-170.666667 0-93.866667-76.8-170.666667-170.666667-170.666666h-4.266666c-21.333333-98.133333-106.666667-170.666667-209.066667-170.666667-119.466667 0-213.333333 93.866667-213.333333 213.333333-72.533333 8.533333-128 72.533333-128 149.333334C170.666667 699.733333 238.933333 768 320 768H512v-217.6l-98.133333 98.133333-29.866667-29.866666 149.333333-149.333334 149.333334 149.333334-29.866667 29.866666-98.133333-98.133333z m0 217.6v42.666667h-42.666667v-42.666667h-64v42.666667h-128C213.333333 810.666667 128 725.333333 128 618.666667c0-85.333333 55.466667-157.866667 128-183.466667C273.066667 311.466667 379.733333 213.333333 512 213.333333c110.933333 0 209.066667 72.533333 243.2 170.666667 102.4 12.8 183.466667 102.4 183.466667 213.333333s-85.333333 200.533333-192 213.333334h-128v-42.666667H554.666667z"
+                fill="currentColor"></path>
+        </svg>
+        <input type="file" class="fileInput" />
+
+        <img class="imgContent mediaContent" />
+
+        <video class="videoContent mediaContent" controls autoplay muted></video>
+
+        <div class="otherConent mediaContent">
+        </div>
+    </div>
+    <div class="fileUrlBox">
+        <span class="fileUrl">
+            上传文件获取网络地址
+        </span>
+        <svg class="icon copyIcon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em">
+            <path
+                d="M833.33 767.96h-91.9c-21.73 0-39.34-17.6-39.34-39.34s17.62-39.34 39.34-39.34h91.9c8.82 0 15.98-7.18 15.98-15.98V193.8c0-8.8-7.17-15.98-15.98-15.98H353.84c-8.82 0-15.98 7.18-15.98 15.98v90.86c0 21.75-17.62 39.34-39.34 39.34s-39.34-17.6-39.34-39.34V193.8c0-52.21 42.47-94.67 94.67-94.67h479.49c52.19 0 94.67 42.45 94.67 94.67v479.49c-0.01 52.21-42.49 94.67-94.68 94.67z"
+                fill="currentColor"></path>
+            <path
+                d="M675.96 925.33H196.47c-52.19 0-94.67-42.45-94.67-94.67V351.17c0-52.21 42.47-94.67 94.67-94.67h479.49c52.19 0 94.67 42.45 94.67 94.67v479.49c-0.01 52.22-42.48 94.67-94.67 94.67zM196.47 335.19c-8.82 0-15.98 7.18-15.98 15.98v479.49c0 8.8 7.17 15.98 15.98 15.98h479.49c8.82 0 15.98-7.18 15.98-15.98V351.17c0-8.8-7.17-15.98-15.98-15.98H196.47z"
+                fill="currentColor"></path>
+        </svg>
+    </div>
+
+    <script>
+        function dom(selector) {
+            return document.querySelector(selector)
+        }
+
+        function copyText(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text);
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+            }
+        }
+
+
+        let tDom
+        function uploadFile(file) {
+            const formData = new FormData();
+            formData.append('file', file)
+            fetch('/uploadFile', {
+                method: 'POST',
+                body: formData
+            }).then(res => {
+                return res.json()
+            }).then(res => {
+                if (res.code === 200) {
+                    const { mimetype, fileUrl } = res.data
+                    if (mimetype.includes('image')) {
+                        tDom = dom('.imgContent')
+                        tDom.src = fileUrl
+                        tDom.style.display = 'block'
+                    } else if (mimetype.includes('video')) {
+                        tDom = dom('.videoContent')
+                        tDom.src = fileUrl
+                        tDom.style.display = 'block'
+                    } else {
+                        tDom = dom('.otherConent')
+                        tDom.innerText = '作者很懒，没有为当前格式的文件设置预览。'
+                        tDom.style.display = 'flex'
+                    }
+                    dom('.delIcon').style.display = 'block'
+                    dom('.fileUrl').innerText = fileUrl
+                } else {
+                    tDom = dom('.otherConent')
+                    tDom.innerText = res.msg
+                    tDom.style.display = 'flex'
+                    dom('.delIcon').style.display = 'block'
+                    dom('.fileUrl').innerText = res.msg
+                }
+            })
+        }
+
+        document.addEventListener('paste', (event) => {
+            const item = event.clipboardData.items[0];
+            if (item) {
+                if (item.type.includes('image') || item.type.includes('video')) {
+                    uploadFile(item.getAsFile())
+                } else {
+                    alert('粘贴板没有图片或视频')
+                }
+            } else {
+                alert('粘贴板空空如也')
+            }
+        });
+
+
+        dom('.upload').addEventListener('click', () => {
+            dom('.fileInput').click()
+        })
+
+        dom('.fileInput').addEventListener('change', (e) => {
+            const files = e.target.files;
+            if (files.length > 0) {
+                uploadFile(files[0])
+            }
+        });
+
+        dom('.fileUrlBox').addEventListener('click', () => {
+            copyText(dom('.fileUrlBox').innerText)
+
+            const copyIcon = dom('.copyIcon');
+            if (!copyIcon.classList.contains('rotateYAni')) {
+                copyIcon.classList.add('rotateYAni')
+                copyIcon.addEventListener('animationend', function () {
+                    copyIcon.classList.remove('rotateYAni');
+                });
+            }
+        })
+
+        dom('.delIcon').addEventListener('click', (e) => {
+            e.stopPropagation();
+
+            tDom.style.display = 'none'
+
+            dom('.fileUrl').innerText = '上传文件获取网络地址'
+            dom('.delIcon').style.display = 'none'
+        })
+
+    </script>
+</body>
+
+</html>
