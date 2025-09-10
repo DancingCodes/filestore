@@ -12,7 +12,7 @@ const fs = require('fs');
 //     pwd: "DancingCodes1227",
 //     roles: [{ role: "readWrite", db: "FilePost" }]
 // })
-mongoose.connect('mongodb://FilePost:DancingCodes1227@127.0.0.1:27017/FilePost').then(
+mongoose.connect('mongodb://FilePost:DancingCodes1227@82.156.9.114:27017/FilePost').then(
     () => {
         console.log('数据库已连接')
     },
